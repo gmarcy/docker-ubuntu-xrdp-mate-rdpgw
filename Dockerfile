@@ -3,7 +3,7 @@
 FROM ubuntu
 
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
 RUN cd /root && \
@@ -140,7 +140,7 @@ RUN echo "mate-session" > /etc/skel/.xsession && \
     mkdir -p /var/run/xrdp/sockdir && \
     chmod 3777 /var/run/xrdp/sockdir && \
     touch /etc/skel/.Xauthority && \
-    mkdir /run/dbus/ && chown messagebus:messagebus /run/dbus/ && \
+    mkdir -p /run/dbus/ && chown messagebus:messagebus /run/dbus/ && \
     #dbus-uuidgen > /etc/machine-id && \
     #ln -sf /var/lib/dbus/machine-id /etc/machine-id && \  
     echo "[program:xrdp-sesman]" > /etc/supervisor/conf.d/xrdp.conf && \
@@ -160,3 +160,9 @@ COPY autostartup.sh /root/
 CMD ["/bin/bash", "/root/autostartup.sh"]
                                     
 EXPOSE 3389 22
+
+RUN cd /etc/xrdp/ && \
+    openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 3650 \
+    -subj "/C=US/ST=VA/L=SomeCity/O=MyCompany/OU=MyDivision/CN=xrdp"
+
+COPY xrdp.ini /etc/xrdp/xrdp.ini

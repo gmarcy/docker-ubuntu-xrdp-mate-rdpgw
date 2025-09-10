@@ -1,4 +1,4 @@
-Use https://github.com/RattyDAVE/docker-ubuntu-xrdp-mate-custom/issues to send feedback, issues, comments and general chat.
+Use https://github.com/gmarcy/docker-ubuntu-xrdp-mate-rdpgw/issues to send feedback, issues, comments and general chat.
 
 ### Quick Start
 
@@ -6,13 +6,13 @@ Run the following to get started.
 
 ```
 echo "user:pass:N" > CREATEUSERS.TXT
-docker run --name RattyDAVE20.04 \
+docker run --name gmarcy-rdpgw \
            --privileged=true \
            -p 3389:3389 \
            -e TZ="Europe/London" \
            -v ${PWD}/CREATEUSERS.TXT:/root/createusers.txt \
            -dit --restart unless-stopped \
-           rattydave/docker-ubuntu-xrdp-mate-custom
+           ghcr.io/gmarcy/docker-ubuntu-xrdp-mate-rdpgw
 ```
 
 Then on a windows machine type
@@ -47,7 +47,7 @@ Contents:
 - Clipboard Sharing (require elevated rights with this parameter ```--privileged=true```)
 
 ```
-docker run --name RattyDAVE20.04 \
+docker run --name gmarcy-rdpgw \
            --privileged=true \
            -p 3389:3389 \
            -e TZ="Europe/London" \
@@ -55,7 +55,7 @@ docker run --name RattyDAVE20.04 \
            -v %LOCAL_PATH_TO_STARTUP.SH_FILE%:/root/startup.sh \
            -v %LOCAL_PATH_TO_HOME_DIRECTORY%:/home \
            -dit --restart unless-stopped \
-           rattydave/docker-ubuntu-xrdp-mate-custom:20.04
+           ghcr.io/gmarcy/docker-ubuntu-xrdp-mate-rdpgw
 ```
 
 - Replace %LOCAL_PATH_TO_CREATEUSERS.TXT_FILE% with the local filename of the createusers file.
@@ -112,7 +112,7 @@ docker run -d \
     containrrr/watchtower
 ```
 
-## rattydave/docker-ubuntu-xrdp-mate-custom:20.04-tools
+## ghcr.io/gmarcy/docker-ubuntu-xrdp-mate-rdpgw:latest-tools
 
 I doubt most people would want this version but I have made available. This release contains development tools.
 
@@ -144,7 +144,7 @@ Screen sharing:
 Example of a working command line.
 
 ```
-docker run --name RattyDAVE20.04-tools \
+docker run --name gmarcy-rdpgw-tools \
            --privileged=true \
            -p 3389:3389 \
            -e TZ="Europe/London" \
@@ -152,7 +152,7 @@ docker run --name RattyDAVE20.04-tools \
            -v %LOCAL_PATH_TO_STARTUP.SH_FILE%:/root/startup.sh \
            -v %LOCAL_PATH_TO_HOME_DIRECTORY%:/home \
            -dit --restart unless-stopped \
-           rattydave/docker-ubuntu-xrdp-mate-custom:20.04-tools
+           ghcr.io/gmarcy/docker-ubuntu-xrdp-mate-rdpgw:latest-tools
 ```
 
 Please note some clients need an extra parameter set glyph-cache. xfreerdp, remmina and others need this set.
